@@ -1,0 +1,1 @@
+docker build  -t embassy/logstash:latest -t embassy/logstash:7.17.9 .

@@ -1,0 +1,629 @@
+{
+	"info": {
+		"_postman_id": "4e12aeb4-6de1-451b-be68-7ac1dce1eafd",
+		"name": "JAMP-module-6-elk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ESearch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ESearch health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/_cat/indices/*?v&s=index",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_cat",
+						"indices",
+						"*"
+					],
+					"query": [
+						{
+							"key": "v",
+							"value": null
+						},
+						{
+							"key": "s",
+							"value": "index"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ESearch events mapping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/events/_mapping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_mapping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save event 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"title\": \"MJC-May\",\r\n\t\t\"eventType\": \"workshop\",\r\n\t\t\"dateTime\": \"2021-05-14T10:30:47Z\",\r\n\t\t\"place\": \"online\",\r\n\t\t\"description\": \"xxx\",\r\n\t\t\"subTopics\": [\"red\", \"green\", \"blue\"]\t\t\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save event 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"title\": \"MJC-April\",\r\n\t\t\"eventType\": \"tech-talk\",\r\n\t\t\"dateTime\": \"2021-04-14T10:30:47Z\",\r\n\t\t\"place\": \"online\",\r\n\t\t\"description\": \"xxx\",\r\n\t\t\"subTopics\": [\"purple\", \"heaven\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save event 3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"title\": \"MJC-March\",\r\n\t\t\"eventType\": \"workshop\",\r\n\t\t\"dateTime\": \"2021-03-14T10:30:47Z\",\r\n\t\t\"place\": \"online\",\r\n\t\t\"description\": \"xxx\",\r\n        \"subTopics\": [\"white\", \"black\", \"lime\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save event 4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"title\": \"MJC-February\",\r\n\t\t\"eventType\": \"tech-talk\",\r\n\t\t\"dateTime\": \"2021-02-14T10:30:47Z\",\r\n\t\t\"place\": \"online\",\r\n\t\t\"description\": \"xxx\",\r\n        \"subTopics\": [\"ice\", \"water\"] \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get event 1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"content-type": true,
+					"connection": true,
+					"accept-encoding": true,
+					"accept": true,
+					"user-agent": true,
+					"host": true,
+					"content-length": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"title\": \"MJC-February\",\r\n\t\t\"eventType\": \"tech-talk\",\r\n\t\t\"dateTime\": \"2021-02-14T10:30:47Z\",\r\n\t\t\"place\": \"online\",\r\n\t\t\"description\": \"xxx\",\r\n\t\t\"subTopics\": [{\r\n\t\t\t\"key\": \"stream1\",\r\n\t\t\t\"value\": \"ice\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"key\": \"stream2\",\r\n\t\t\t\"value\": \"water\"\r\n\t\t}]\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update event 1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"title\": \"MJC-May-x\",\r\n\t\t\"eventType\": \"workshop\",\r\n\t\t\"dateTime\": \"2021-05-14T10:30:47Z\",\r\n\t\t\"place\": \"Rome\",\r\n\t\t\"description\": \"yyy\",\r\n\t\t\"subTopics\": [\"red-x\", \"green-x\", \"blue-x\"]\t\t\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partial update event 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"doc\":{\r\n\t    \"title\": \"MJC-May\",\r\n\t    \"eventType\": \"tech-talk\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/1/_update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"1",
+						"_update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete event 2",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_doc/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_doc",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search all events",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\":{\r\n\t    \"match_all\": {}\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search workshop events",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\":{\r\n\t    \"match\": {\r\n            \"eventType\":\"workshop\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search events by title",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\":{\r\n\t    \"match\": {\r\n            \"title\":\"March\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search term query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\":{\r\n\t    \"term\": {\r\n            \"place\":\"online\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search events by title and after date",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\":{\r\n        \"bool\":{\r\n            \"must\":[\r\n                {\r\n                    \"match\": {\r\n                        \"title\":\"April\"\r\n                    }\r\n                }\r\n            ],\r\n            \"filter\":[\r\n                {\r\n                    \"range\":{\r\n                        \"dateTime\":{\r\n                        \"gte\":\"2021-03-14T10:30:47Z\"\r\n                        }\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search amount of events for each event type",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"aggs\":{\r\n        \"types\":{\r\n            \"terms\":{\r\n                \"field\":\"eventType.keyword\"\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BULK API: Delete all events with title NNN",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/events/_delete_by_query?q=title:MJC*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"events",
+						"_delete_by_query"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "title:MJC*"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

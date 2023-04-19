@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                pattern="%d{HH-mm-ssSSS} [%u{RANDOM} app_name=m6-elk app_version=0.1.0-SNAPSHOT $${map:hostName}] %-5level %pid %class: %msg%n%throwable" />
+        </Console>
+        <File name="RollingFile" fileName="./logs/m6-elk.log">
+            <PatternLayout>
+                <pattern>%d{HH-mm-ssSSS} [%u{RANDOM} app_name=m6-elk app_version=0.1.0-SNAPSHOT $${map:hostName}] %-5level %pid %class: %msg%n%throwable</pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Root>
+        <Logger name="com.epam.yrofeeva.helen.m6" level="INFO"></Logger>
+    </Loggers>
+</Configuration>
