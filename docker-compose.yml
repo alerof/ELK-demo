@@ -17,8 +17,9 @@ services:
       network.publish_host: _eth0_
     networks:
       - elk
+
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.17.9
+    image: docker.io/embassy/logstash:latest
     ports:
       - "5044:5044"
       - "5000:5000"
@@ -33,12 +34,14 @@ services:
         target: /usr/share/logstash/pipeline/logstash.conf
         read_only: true  
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
+    env_file:
+      - .env
     networks:
       - elk
+
   filebeat:
     user: root
-    container_name: filebeat
     image: docker.elastic.co/beats/filebeat:7.17.9
     depends_on:
       - logstash
@@ -52,8 +55,11 @@ services:
     command: ["--strict.perms=false"]
     networks:
       - elk
+
   kibana:
     image: docker.elastic.co/kibana/kibana:7.17.9
+    depends_on:
+      - elasticsearch
     ports:
       - "5601:5601"
     volumes:
@@ -63,8 +69,7 @@ services:
         read_only: true    
     networks:
       - elk
-    depends_on:
-      - elasticsearch
+
 networks:
   elk:
     driver: bridge
