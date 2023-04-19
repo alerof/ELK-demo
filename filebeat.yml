@@ -1,5 +1,7 @@
+# 7.17.9
 filebeat.inputs:
-- type: log
+- type: filestream
+  id: my-filestream-id
   enabled: true
   paths:
     - /usr/share/filebeat/m6-elk.log

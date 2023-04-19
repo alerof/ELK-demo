@@ -2,7 +2,7 @@
 version: '3.3'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -18,7 +18,7 @@ services:
     networks:
       - elk
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.12.1
+    image: docker.elastic.co/logstash/logstash:7.17.9
     ports:
       - "5044:5044"
       - "5000:5000"
@@ -39,7 +39,7 @@ services:
   filebeat:
     user: root
     container_name: filebeat
-    image: docker.elastic.co/beats/filebeat:7.12.1
+    image: docker.elastic.co/beats/filebeat:7.17.9
     depends_on:
       - logstash
     volumes:
@@ -53,7 +53,7 @@ services:
     networks:
       - elk
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.12.1
+    image: docker.elastic.co/kibana/kibana:7.17.9
     ports:
       - "5601:5601"
     volumes:
