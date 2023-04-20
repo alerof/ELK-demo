@@ -17,6 +17,7 @@
 		<java.version>11</java.version>
 		<springboot.version>2.6.6</springboot.version>
 		<maven.test.skip>true</maven.test.skip>
+		<project.build.finalName>elk-demo</project.build.finalName>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -54,12 +55,136 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.build.finalName}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${springboot.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>com.example.yrofeeva.helen.elk.Application</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>docker</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.1.0</version>
+						<configuration>
+							<delimiters>
+								<delimiter>@</delimiter>
+							</delimiters>
+							<useDefaultDelimiters>false</useDefaultDelimiters>
+						</configuration>
+						<executions>
+							<execution>
+								<id>copy-docker-resources</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/docker</directory>
+											<targetPath>${project.build.directory}/docker/${project.version}/build
+											</targetPath>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copy-docker-resources2</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+									<resources>
+										<resource>
+											<directory>${project.build.directory}/</directory>
+											<includes>
+												<include>${project.build.finalName}.jar</include>
+											</includes>
+											<targetPath>${project.build.directory}/docker/${project.version}/build</targetPath>
+											<filtering>false</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>0.33.0</version>
+						<configuration>
+							<verbose>true</verbose>
+							<images>
+								<image>
+									<alias>${project.artifactId}</alias>
+									<name>embassy/${project.artifactId}:${project.version}</name>
+									<name>embassy/${project.artifactId}:${project.version}</name>
+									<build>
+										<cleanup>true</cleanup>
+										<dockerFileDir>${project.build.directory}/docker/${project.version}/build
+										</dockerFileDir>
+										<tags>
+											<tag>latest</tag>
+											<tag>${project.version}</tag>
+										</tags>
+									</build>
+								</image>
+							</images>
+						</configuration>
+						<executions>
+							<execution>
+								<id>build-image</id>
+								<phase>package</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>push-images</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>push</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
 
 </project>
