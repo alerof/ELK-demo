@@ -1,79 +1,86 @@
 # docker-compose down && docker-compose up
 version: '3.3'
 services:
-#  elasticsearch:
-#    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
-#    ports:
-#      - "9200:9200"
-#      - "9300:9300"
-#    volumes:
-#      - type: bind
-#        source: ./elasticsearch.yml
-#        target: /usr/share/elasticsearch/config/elasticsearch.yml
-#        read_only: true
-#    environment:
-#      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-#      discovery.type: single-node
-#      network.publish_host: _eth0_
-#    networks:
-#      - elk
-#
-#  logstash:
-#    image: docker.io/embassy/logstash:latest
-#    ports:
-#      - "5044:5044"
-#      - "5000:5000"
-#      - "9600:9600"
-#    volumes:
-#      - type: bind
-#        source: ./logstash.yml
-#        target: /usr/share/logstash/config/logstash.yml
-#        read_only: true
-#      - type: bind
-#        source: ./logstash.conf
-#        target: /usr/share/logstash/pipeline/logstash.conf
-#        read_only: true
-#    environment:
-#      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
-#    env_file:
-#      - .env
-#    networks:
-#      - elk
-#
-#  filebeat:
-#    user: root
-#    image: docker.elastic.co/beats/filebeat:7.17.9
-#    depends_on:
-#      - logstash
-#    volumes:
-#      - type: bind
-#        source: ./filebeat.yml
-#        target: /usr/share/filebeat/filebeat.yml
-#      - type: bind
-#        source: ./logs/m6-elk.log
-#        target: /usr/share/filebeat/m6-elk.log
-#    command: ["--strict.perms=false"]
-#    networks:
-#      - elk
-#
-#  kibana:
-#    image: docker.elastic.co/kibana/kibana:7.17.9
-#    depends_on:
-#      - elasticsearch
-#    ports:
-#      - "5601:5601"
-#    volumes:
-#      - type: bind
-#        source: ./kibana.yml
-#        target: /usr/share/kibana/config/kibana.yml
-#        read_only: true
-#    networks:
-#      - elk
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - type: bind
+        source: ./elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      discovery.type: single-node
+      network.publish_host: _eth0_
+    networks:
+      - elk
+
+  logstash:
+    image: docker.io/embassy/logstash:latest
+    ports:
+      - "5044:5044"
+      - "5000:5000"
+      - "9600:9600"
+    volumes:
+      - type: bind
+        source: ./logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
+        source: ./logstash.conf
+        target: /usr/share/logstash/pipeline/logstash.conf
+        read_only: true
+    environment:
+      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
+    env_file:
+      - .env
+    networks:
+      - elk
+
+  filebeat:
+    user: root
+    image: docker.elastic.co/beats/filebeat:7.17.9
+    depends_on:
+      - logstash
+    command:
+      - -e
+      - --strict.perms=false
+    volumes:
+      - type: bind
+        source: ./filebeat.yml
+        target: /usr/share/filebeat/filebeat.yml
+      - type: bind
+        source: /var/lib/docker
+        target: /var/lib/docker
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    networks:
+      - elk
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.9
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    volumes:
+      - type: bind
+        source: ./kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    networks:
+      - elk
 
   app:
     image: embassy/elk-demo:latest
-#    depends_on:
-#      - logstash
+    labels:
+      - filebeat_enable=enabled
+    depends_on:
+      - logstash
     ports:
       - "8080:8080"
       - "8081:8081"
