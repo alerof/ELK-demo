@@ -6,12 +6,18 @@ filebeat.autodiscover:
       hints.default_config.enabled: false
       templates:
         - condition:
-            equals.docker.container.labels.filebeat_enable: "enabled"
+            contains:
+              docker.container.image: elk-demo
           config:
             - type: container
+              enabled: true
               paths:
-                - "/var/lib/docker/containers/*/*.log"
-              fields_under_root: true
+                - /var/lib/docker/containers/${data.docker.container.id}/*.log
+
+# Write Filebeat own logs only to file to avoid catching them with itself in docker log files
+logging.to_files: true
+logging.to_syslog: false
+logging.level: warning
 
 output.logstash:
   enabled: true
