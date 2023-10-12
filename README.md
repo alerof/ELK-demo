@@ -4,7 +4,8 @@
  
 ## Module 6
 
-  ELK
+  ELK stack: E = Elasticsearch, L = Logstash, K = Kibana
+  and Docker&Filebeat as a first input
 
 ### ElasticSearch CRUD Operations Practical Task: 3 points
 
