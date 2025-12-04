@@ -1,4 +1,4 @@
-FROM docker.elastic.co/logstash/logstash:7.17.9
+FROM docker.elastic.co/logstash/logstash:8.17.0
 
 LABEL maintainer=alaerof@gmail.com
 

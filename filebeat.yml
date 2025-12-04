@@ -1,4 +1,4 @@
-# 7.17.9
+# 8.17.0
 filebeat.inputs:
 - type: filestream
   id: my-filestream-id

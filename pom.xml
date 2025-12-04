@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.6</version>
+		<version>3.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.yrofeeva.helen.elk</groupId>
@@ -14,8 +14,9 @@
 	<name>ELK-demo</name>
 	<description>Filebeat->Logstash->Elasticsearch->Kibana example</description>
 	<properties>
-		<java.version>11</java.version>
-		<springboot.version>2.6.6</springboot.version>
+		<java.version>21</java.version>
+		<springboot.version>3.5.3</springboot.version>
+		<elasticsearch.version>8.17.0</elasticsearch.version>
 		<maven.test.skip>true</maven.test.skip>
 	</properties>
 	<dependencies>
@@ -33,13 +34,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
+		<!-- Elasticsearch Java Client (new API replacing deprecated high-level REST client) -->
+		<dependency>
+			<groupId>co.elastic.clients</groupId>
+			<artifactId>elasticsearch-java</artifactId>
+			<version>${elasticsearch.version}</version>
+		</dependency>
+		<!-- Low-level REST client (still supported) -->
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-client</artifactId>
 		</dependency>
+		<!-- Jackson for JSON processing with Elasticsearch Java Client -->
 		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>elasticsearch-rest-high-level-client</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

@@ -42,11 +42,13 @@ This project demonstrates a complete **ELK Stack** (Elasticsearch, Logstash, Kib
 
 | Component | Version | Purpose |
 |-----------|---------|---------|
-| **Spring Boot** | 2.6.6 | Java application framework |
-| **Elasticsearch** | 7.17.9 | Distributed search and analytics engine |
-| **Logstash** | 7.17.9 | Log processing pipeline |
-| **Kibana** | 7.17.9 | Data visualization dashboard |
-| **Filebeat** | 7.17.9 | Lightweight log shipper |
+| **Java** | 21 | Runtime environment (LTS) |
+| **Spring Boot** | 3.5.3 | Java application framework |
+| **Elasticsearch** | 8.17.0 | Distributed search and analytics engine |
+| **Logstash** | 8.17.0 | Log processing pipeline |
+| **Kibana** | 8.17.0 | Data visualization dashboard |
+| **Filebeat** | 8.17.0 | Lightweight log shipper |
+| **ES Java Client** | 8.17.0 | Elasticsearch Java API |
 | **Docker** | - | Container orchestration |
 
 ---

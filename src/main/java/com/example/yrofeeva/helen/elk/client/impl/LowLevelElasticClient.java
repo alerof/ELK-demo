@@ -1,8 +1,10 @@
 package com.example.yrofeeva.helen.elk.client.impl;
 
-import com.example.yrofeeva.helen.elk.client.EventUtil;
 import com.example.yrofeeva.helen.elk.client.ElasticClient;
+import com.example.yrofeeva.helen.elk.client.EventUtil;
 import com.example.yrofeeva.helen.elk.model.Event;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
@@ -14,8 +16,6 @@ import org.elasticsearch.client.RestClient;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

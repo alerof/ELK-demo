@@ -16,7 +16,7 @@ This project demonstrates **two main features**:
 ### Prerequisites
 
 - Docker and Docker Compose installed
-- Java 11+ (for local development)
+- Java 21+ (for local development)
 - Maven 3.6+
 
 ### Step 1: Build Spring Boot Application
@@ -110,27 +110,30 @@ java -jar target/elk-demo.jar --produce.logs=true --elastic.client.enabled=true
 
 ## 📊 Feature 2: View Logs in Kibana
 
-### Step-by-Step Guide
+### Step-by-Step Guide (Kibana 8.x)
 
 #### 1. Open Kibana
 ```
 http://localhost:5601
 ```
+> **Note:** Kibana takes 30-60 seconds to fully initialize after `docker-compose up`
 
-#### 2. Create Index Pattern (First Time Only)
+#### 2. Create Data View (First Time Only)
 
 1. Click **☰** (hamburger menu) → **Stack Management**
-2. Click **Index Patterns** (under Kibana section)
-3. Click **Create index pattern**
-4. Enter: `filebeat-*` → Click **Next step**
-5. Select **@timestamp** as Time field
-6. Click **Create index pattern**
+2. Click **Data Views** (under Kibana section)
+3. Click **Create data view**
+4. Configure:
+   - **Name:** `filebeat-logs`
+   - **Index pattern:** `filebeat-*`
+   - **Timestamp field:** `@timestamp`
+5. Click **Save data view to Kibana**
 
 #### 3. View Application Logs
 
 1. Click **☰** → **Discover**
-2. Select `filebeat-*` from dropdown (top-left)
-3. Set time range: **Last 15 minutes** (top-right)
+2. Select `filebeat-logs` data view from dropdown (top-left)
+3. Set time range: **Last 15 minutes** (top-right calendar icon)
 4. You should see logs from the Spring Boot application
 
 #### 4. Explore Log Fields
@@ -179,10 +182,12 @@ app_name: "m6-elk" and log-level: "INFO" and message: *Event*
 
 | Problem | Solution |
 |---------|----------|
+| Kibana not accessible | Wait 30-60 seconds after `docker-compose up` for initialization |
 | No logs visible | Check time range (top-right), try "Last 1 hour" |
-| Index pattern not found | Wait 1-2 minutes for first logs, then refresh |
-| Fields not parsed | Check Logstash is running: `docker ps` |
+| Data view not found | Wait 1-2 minutes for first logs, then refresh |
+| Fields not parsed | Check Logstash is running: `docker-compose ps` |
 | Empty MESSAGE field | Log format may not match Grok pattern |
+| Container not starting | Check logs: `docker-compose logs <service>` |
 
 ---
 
@@ -247,9 +252,9 @@ Import `JAMP-module-6-elk.postman_collection.json` for ready-to-use requests:
 - Configure via `logging.structured.format.console` or `logging.structured.format.file` properties
 - MDC (Mapped Diagnostic Context) values are automatically included in JSON output
 
-### Elasticsearch Java Client
-- **High-Level Client**: Uses builder pattern for type-safe queries
-- **Low-Level Client**: Direct HTTP requests for maximum flexibility
+### Elasticsearch Java Client (8.x)
+- **Elasticsearch Java Client**: New fluent API with type-safe builders (replaces deprecated High-Level REST Client)
+- **Low-Level REST Client**: Direct HTTP requests for maximum flexibility
 - Both support bulk operations for efficient indexing
 
 ### Filebeat
