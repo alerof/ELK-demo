@@ -1,1 +1,1 @@
-docker build  -t embassy/logstash:latest -t embassy/logstash:7.17.9 .
+docker build -t logstash-s3:latest -t logstash-s3:7.17.9 .

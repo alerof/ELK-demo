@@ -1,5 +1,5 @@
 # docker-compose down && docker-compose up
-version: '3.3'
+
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
@@ -19,7 +19,7 @@ services:
       - elk
 
   logstash:
-    image: docker.io/embassy/logstash:latest
+    image: docker.elastic.co/logstash/logstash:7.17.9
     ports:
       - "5044:5044"
       - "5000:5000"
@@ -35,8 +35,6 @@ services:
         read_only: true  
     environment:
       LS_JAVA_OPTS: "-Xmx1g -Xms1g"
-    env_file:
-      - .env
     networks:
       - elk
 

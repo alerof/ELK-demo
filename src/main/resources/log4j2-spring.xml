@@ -17,6 +17,6 @@
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
         </Root>
-        <Logger name="com.epam.yrofeeva.helen.m6" level="INFO"></Logger>
+        <Logger name="com.example.yrofeeva.helen.m6" level="INFO"></Logger>
     </Loggers>
 </Configuration>

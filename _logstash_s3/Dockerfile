@@ -1,6 +1,6 @@
 FROM docker.elastic.co/logstash/logstash:7.17.9
 
-LABEL maintainer=WKG-GPO-Embassy-Support@wolterskluwer.com
+LABEL maintainer=alaerof@gmail.com
 
 RUN bin/logstash-plugin install logstash-output-s3
 
